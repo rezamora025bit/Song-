@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AETHER — Beyond Sound</title>
+<link rel="icon" href="assets/logo-mark.jpg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0A0B10">
+<link rel="apple-touch-icon" href="assets/logo-mark.jpg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AETHER">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="boot-splash" id="bootSplash">
+  <img src="assets/logo-mark.jpg" alt="AETHER">
+  <div class="boot-word">AETHER</div>
+</div>
+<div class="aurora" aria-hidden="true">
+  <div class="aurora-set active" id="auroraSetA"><span class="blob blob1"></span><span class="blob blob2"></span></div>
+  <div class="aurora-set" id="auroraSetB"><span class="blob blob1"></span><span class="blob blob2"></span></div>
+</div>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="wordmark"><img class="mark-icon" src="assets/logo-mark.jpg" alt="Aether"><span class="wordmark-text">AETHER<span class="wordmark-tagline">Beyond Sound</span></span></div>
+    <nav class="primary">
+      <button class="nav-item active" data-view="home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg> Home
+      </button>
+      <button class="nav-item" data-view="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg> Search
+      </button>
+      <button class="nav-item" data-view="library">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h4v16H4zM10 8h4v12h-4zM16 12h4v8h-4z"/></svg> Your Library
+      </button>
+      <button class="nav-item" data-view="genres">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg> Genres
+      </button>
+    </nav>
+    <button class="liked-link" data-view="playlist" data-id="liked">
+      <span class="heart-badge"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 4 2.5C10.5 5 12 4 14 4c4 0 5.5 4 4 7.7C21 16.65 14 21 12 21z"/></svg></span>
+      Liked Songs
+    </button>
+    <div>
+      <div class="sidebar-section-label">Your Playlists</div>
+      <div class="playlist-list" id="sidebarUserPlaylists"></div>
+    </div>
+    <div>
+      <div class="sidebar-section-label">Curated Playlists</div>
+      <div class="playlist-list" id="sidebarPlaylists"></div>
+    </div>
+  </aside>
+
+  <main>
+    <div class="topbar">
+      <button class="icon-btn" id="btnBack" title="Back" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="topSearchInput" type="text" placeholder="Search songs, artists, playlists...">
+      </div>
+      <button class="icon-btn" id="btnAIToggle" title="AI DJ">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 5.3L19 9l-5.4 1.7L12 16l-1.6-5.3L5 9l5.4-1.7L12 2zM19 14l.8 2.6L22.4 17.4l-2.6.8L19 21l-.8-2.6-2.6-.8 2.6-.8L19 14z"/></svg>
+      </button>
+      <button class="icon-btn" id="btnQueueToggle" title="Queue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"/></svg>
+      </button>
+      <button class="icon-btn" id="btnThemeToggle" title="Toggle theme">
+        <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.5A8.5 8.5 0 1111.5 3 7 7 0 0021 12.5z"/></svg>
+        <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="avatar" id="btnUserToggle" title="Your profile">NW</button>
+    </div>
+
+    <section class="view active" id="view-home">
+      <img class="home-banner" src="assets/logo-banner.jpg" alt="AETHER — Beyond Sound">
+      <h1 class="page-title">Good evening.</h1>
+      <p class="page-sub">Sounds built for the hours after everyone else logs off.</p>
+      <div class="section">
+        <div class="section-head"><h2>✨ AI picks for you</h2><button class="btn-ghost" id="btnAIRecommend" style="padding:7px 14px; font-size:12px;">Get recommendations</button></div>
+        <div id="aiRecommendBox"><div style="font-size:12.5px; color:var(--muted);">Tap "Get recommendations" and the AI DJ will suggest tracks based on what you've liked.</div></div>
+      </div>
+      <div class="section"><div class="section-head"><h2>🆕 New releases</h2></div><div class="card-grid" id="homeNewReleases"></div></div>
+
+      <div class="section">
+        <div class="section-head"><h2>🔥 Top songs this week</h2></div>
+        <table class="track-table"><thead><tr><th>#</th><th>Title</th><th>Album</th><th></th><th style="text-align:right;">Duration</th></tr></thead>
+        <tbody id="weeklyChartBody"></tbody></table>
+      </div>
+
+      <div class="section">
+        <div class="section-head"><h2>🎤 Artist of the week</h2></div>
+        <div class="pl-header" style="background:var(--bg-panel); border:1px solid var(--line); border-radius:14px; padding:20px; margin-bottom:0;">
+          <div class="avatar-lg" id="spotlightAvatar" style="width:110px; height:110px; flex-shrink:0;"></div>
+          <div>
+            <h1 id="spotlightName" style="font-size:24px;"></h1>
+            <p id="spotlightSub"></p>
+            <div class="pl-actions">
+              <button class="btn-play-big" id="spotlightPlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Play</button>
+              <button class="btn-ghost" id="spotlightViewArtist">View artist</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-grid" style="margin-top:16px;" id="spotlightTracks"></div>
+      </div>
+
+      <div class="section"><div class="section-head"><h2>Browse by genre</h2><button class="btn-ghost" id="btnSeeAllGenres" style="padding:7px 14px; font-size:12px;">See all</button></div><div class="card-grid" id="homeGenres"></div></div>
+      <div class="section"><div class="section-head"><h2>Made for the small hours</h2></div><div class="card-grid" id="homePlaylists"></div></div>
+      <div class="section"><div class="section-head"><h2>Browse the catalog</h2></div><div class="card-grid" id="homeTracks"></div></div>
+    </section>
+
+    <section class="view" id="view-search">
+      <h1 class="page-title">Search</h1>
+      <p class="page-sub">Find tracks, artists and playlists.</p>
+      <div id="searchResults"></div>
+    </section>
+
+    <section class="view" id="view-library">
+      <h1 class="page-title">Your Library</h1>
+      <p class="page-sub">Playlists you've saved and created.</p>
+      <div class="card-grid" id="libraryPlaylists"></div>
+    </section>
+
+    <section class="view" id="view-playlist">
+      <div class="pl-header">
+        <div class="cover" id="plCover"></div>
+        <div>
+          <div class="section-head" style="margin-bottom:0;"><span id="plKicker">PLAYLIST</span></div>
+          <h1 id="plTitle"></h1>
+          <p id="plDesc"></p>
+          <div class="pl-actions">
+            <button class="btn-play-big" id="plPlayAll"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Play</button>
+            <button class="btn-ghost" id="plShare"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.5l6.8-4M8.6 13.5l6.8 4"/></svg>Share</button>
+            <button class="btn-ghost" id="plDownload"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>Download</button>
+          </div>
+        </div>
+      </div>
+      <table class="track-table">
+        <thead><tr><th>#</th><th>Title</th><th>Album</th><th></th><th style="text-align:right;">Duration</th></tr></thead>
+        <tbody id="plTrackBody"></tbody>
+      </table>
+    </section>
+
+    <section class="view" id="view-artist">
+      <div class="artist-header">
+        <div class="avatar-lg g6" id="artistAvatar"></div>
+        <h1 class="page-title" id="artistName"></h1>
+        <p class="page-sub" id="artistSub"></p>
+        <button class="btn-play-big" id="artistPlayAll"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Play</button>
+      </div>
+      <table class="track-table">
+        <thead><tr><th>#</th><th>Title</th><th>Album</th><th></th><th style="text-align:right;">Duration</th></tr></thead>
+        <tbody id="artistTrackBody"></tbody>
+      </table>
+    </section>
+
+    <section class="view" id="view-genres">
+      <h1 class="page-title">Genres</h1>
+      <p class="page-sub">Browse the catalog by sound.</p>
+      <div class="card-grid" id="genresGrid"></div>
+    </section>
+
+    <section class="view" id="view-genre">
+      <div class="pl-header">
+        <div class="cover" id="genreCover"></div>
+        <div>
+          <div class="section-head" style="margin-bottom:0;"><span>GENRE</span></div>
+          <h1 id="genreName"></h1>
+          <p id="genreSub"></p>
+          <button class="btn-play-big" id="genrePlayAll"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Play</button>
+        </div>
+      </div>
+      <table class="track-table">
+        <thead><tr><th>#</th><th>Title</th><th>Album</th><th></th><th style="text-align:right;">Duration</th></tr></thead>
+        <tbody id="genreTrackBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <div class="player-bar">
+    <div class="now-playing">
+      <div class="np-cover g6" id="npCover"><div class="waveform"><span></span><span></span><span></span><span></span></div></div>
+      <div class="np-meta">
+        <div class="np-title empty" id="npTitle">Nothing playing</div>
+        <div class="np-artist empty" id="npArtist">Pick a track to start</div>
+        <div class="np-source" id="npSource">CUSTOM AUDIO</div>
+      </div>
+    </div>
+
+    <div class="transport">
+      <div class="transport-buttons">
+        <button id="btnShuffle" title="Shuffle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg></button>
+        <button id="btnPrev" title="Previous"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM20 6l-10 6 10 6z"/></svg></button>
+        <button class="btn-play-pause" id="btnPlayPause" title="Play/Pause">
+          <svg id="iconPlay" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <svg id="iconPause" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+        </button>
+        <button id="btnNext" title="Next"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM4 6l10 6-10 6z"/></svg></button>
+        <button id="btnRepeat" title="Repeat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></button>
+      </div>
+      <div class="progress-row">
+        <span class="time" id="timeElapsed">0:00</span>
+        <div class="progress-track" id="progressTrack"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="time right" id="timeTotal">0:00</span>
+      </div>
+    </div>
+
+    <div class="right-controls">
+      <button class="upload-btn" id="btnShareIG" title="Share to Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      </button>
+      <button class="upload-btn" id="btnUpload" title="Attach real audio to current track">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 21h14"/></svg>
+        <span class="dot-badge" id="uploadDot"></span>
+      </button>
+      <input type="file" id="audioFileInput" accept="audio/*" style="display:none;">
+      <div class="volume-block">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7"/></svg>
+        <div class="volume-track" id="volumeTrack"><div class="volume-fill" id="volumeFill"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="mobile-tabbar" id="mobileTabbar">
+    <button class="mtab active" data-view="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Home</button>
+    <button class="mtab" data-view="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>Search</button>
+    <button class="mtab" data-view="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h4v16H4zM10 8h4v12h-4zM16 12h4v8h-4z"/></svg>Library</button>
+    <button class="mtab" id="mtabAI"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 5.3L19 9l-5.4 1.7L12 16l-1.6-5.3L5 9l5.4-1.7L12 2z"/></svg>AI DJ</button>
+    <button class="mtab" id="mtabProfile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Profile</button>
+  </nav>
+
+  <aside class="queue-panel" id="queuePanel">
+    <div class="queue-head"><h3>Queue</h3><button class="icon-btn" id="btnQueueClose" style="width:28px;height:28px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="queue-list" id="queueList"></div>
+  </aside>
+
+  <aside class="ai-panel" id="aiPanel">
+    <div class="ai-head">
+      <div class="ai-head-title"><span class="spark"><svg viewBox="0 0 24 24"><path d="M12 2l1.6 5.3L19 9l-5.4 1.7L12 16l-1.6-5.3L5 9l5.4-1.7L12 2z"/></svg></span>AI DJ</div>
+      <button class="icon-btn" id="btnAIClose" style="width:28px;height:28px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="ai-chips" id="aiChips">
+      <button class="ai-chip" data-mood="rainy night, melancholic">🌧️ Rainy night</button>
+      <button class="ai-chip" data-mood="late-night driving, energetic">🚗 Late drive</button>
+      <button class="ai-chip" data-mood="deep focus, minimal">🎯 Focus</button>
+      <button class="ai-chip" data-mood="heartbreak, slow">💔 Heartbreak</button>
+      <button class="ai-chip" data-mood="can't sleep, insomnia">🌙 Insomnia</button>
+    </div>
+    <div class="ai-messages" id="aiMessages">
+      <div class="ai-msg system-note">Ask me for a mood, a vibe, or just say what you feel like hearing — I'll build a playlist from the AETHER catalog.</div>
+    </div>
+    <div class="ai-fab-note" id="aiKeyNote" style="display:none;"></div>
+    <div class="ai-input-row">
+      <input type="text" id="aiInput" placeholder="e.g. something for a rainy drive...">
+      <button id="aiSend"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20l18-8L3 4v6l12 2-12 2v6z"/></svg></button>
+    </div>
+  </aside>
+
+  <aside class="user-panel" id="userPanel">
+    <div class="user-panel-head">
+      <h3 style="font-family:'Space Grotesk'; font-size:15px;">Profile</h3>
+      <button class="icon-btn" id="btnUserClose" style="width:28px;height:28px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="user-panel-body">
+      <div class="user-profile-block">
+        <div class="avatar-xl" id="userAvatarXL">NW</div>
+        <input type="text" class="user-name-input" id="userNameInput" value="Night Owl">
+        <div class="user-email">you@aether.app</div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-box"><div class="stat-num" id="statLiked">0</div><div class="stat-label">Liked</div></div>
+        <div class="stat-box"><div class="stat-num" id="statPlaylists">0</div><div class="stat-label">Playlists</div></div>
+        <div class="stat-box"><div class="stat-num" id="statPlays">0</div><div class="stat-label">Plays</div></div>
+      </div>
+      <div>
+        <div class="settings-row">
+          <div><div class="settings-label">Dark mode</div><div class="settings-sub">Switch between light &amp; dark</div></div>
+          <div class="switch on" id="switchTheme"><div class="knob"></div></div>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-label">Autoplay</div><div class="settings-sub">Keep playing similar tracks</div></div>
+          <div class="switch on" id="switchAutoplay"><div class="knob"></div></div>
+        </div>
+      </div>
+      <button class="signout-btn" id="btnSignOut">Sign out</button>
+    </div>
+  </aside>
+
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h3 id="modalTitle"></h3>
+    <input type="text" id="modalInput" style="display:none;">
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-actions">
+      <button class="modal-cancel" id="modalCancel">Cancel</button>
+      <button class="modal-confirm" id="modalConfirm">Done</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<audio id="realAudio" style="display:none;"></audio>
+
+<script src="js/app.js"></script>
+</body>
+</html>

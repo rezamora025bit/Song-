@@ -1,0 +1,17 @@
+{
+  "name": "AETHER \u2014 Beyond Sound",
+  "short_name": "AETHER",
+  "description": "A night-listening music app.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0A0B10",
+  "theme_color": "#0A0B10",
+  "icons": [
+    {
+      "src": "assets/logo-mark.jpg",
+      "sizes": "160x107",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
